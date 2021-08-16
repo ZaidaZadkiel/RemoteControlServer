@@ -10,29 +10,23 @@ import java.net.ServerSocket;
  * @author www.codejava.net
  */
 public class Main {
-  private DatagramSocket socket;
-  private List<String> listQuotes = new ArrayList<String>();
-  private Random random;
-  private ServerSocket serverSocket;
-  private Socket clientSocket;
-  private PrintWriter out;
-  private BufferedReader in;
+  //TODO add config file
   
-  Thread thread;
-  public UDPListener udp;
-  public Main(int port) throws SocketException {
-    new Thread(new UDPListener(4960)).start();
-    new Thread(new TCPListener(45340)).start();
+  public Main() throws SocketException {
+    int port_udp = 4960;
+    int port_tcp = 45340;
+    System.out.println("Started Server");
+  
+    System.out.println("UDP Port: " + port_udp);
+    new Thread(new UDPListener(port_udp)).start();
+    
+    System.out.println("TCP Port: " + port_tcp);
+    new Thread(new TCPListener(port_tcp)).start();
   }
   
   public static void main(String[] args) {
-    System.out.println("Started Server");
-    int port = 4960; //FIXME
-    
-    System.out.println("Port: " + port);
-    
     try {
-      Main server = new Main(port);
+      Main server = new Main();
     } catch (Exception ex) {
       System.out.println("Socket error: " + ex.getMessage());
     }
