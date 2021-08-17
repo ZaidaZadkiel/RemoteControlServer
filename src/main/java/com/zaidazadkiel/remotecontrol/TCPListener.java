@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class TCPListener implements Runnable{
   
@@ -15,21 +16,24 @@ public class TCPListener implements Runnable{
   private PrintWriter out;
   private BufferedReader in;
   private int port;
-  
-  Robot control;
-  PointerInfo mouseinfo;
+  RobotControl control;
   public TCPListener(int port) {
     this.port=port;
     System.out.println("TCP Port: " + port);
+  
+    try {
+      serverSocket = new ServerSocket(port);
+      control = new RobotControl();
+    } catch (AWTException | IOException e) {
+      System.err.println("Error in TCPListener");
+      e.printStackTrace();
+    }
   }
   
   public void start(int port) throws IOException, AWTException {
-    
-    control = new Robot();
-    mouseinfo = MouseInfo.getPointerInfo();
-    
-    serverSocket = new ServerSocket(port);
     clientSocket = serverSocket.accept();
+    clientSocket.setTcpNoDelay(true);
+
     out = new PrintWriter(clientSocket.getOutputStream(), true);
     in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
   
@@ -42,48 +46,67 @@ public class TCPListener implements Runnable{
       addressStr += "." + t;
     }
     addressStr = addressStr.substring(1);
-    
+    System.out.println("tcp "+addressStr+" connection received");
     String inputLine;
-    while ((inputLine = in.readLine()) != null) {
+    
+    boolean debug = true;
+    while ( (inputLine = in.readLine()) != null ) {
       String[] command = inputLine.split(" ");
-      System.out.print("tcp:"+addressStr+" > ");
-      System.out.print(String.join(",", command));
-      System.out.print("\r");
       
-      if("mouse".equals(command[0])){
-//        System.out.println("moving mouse relative X:"+command[1]+" Y:"+command[2]);
-        int x = Integer.parseInt(command[1]);
-        int y = Integer.parseInt(command[2]);
-        
-        Point currentpos = MouseInfo.getPointerInfo().getLocation();
-        control.mouseMove(currentpos.x + x, currentpos.y+y);
+      if(debug){
+        System.out.print("tcp:"+addressStr+" > ");
+        System.out.print(String.join(",", command));
+        System.out.print("\r");
       }
-      
+  
       if (".".equals(inputLine)) {
         out.println("good bye");
         break;
       }
       
+      control.sendCommand(command);
+      
       out.println(inputLine);
     }
+    stop();
   }
   
-  public void stop() throws IOException {
-    in.close();
-    out.close();
-    clientSocket.close();
-    serverSocket.close();
+  public void stop()  {
+    try {
+      System.out.println("closing socket");
+      in.close();
+      out.close();
+      clientSocket.close();
+//      serverSocket.close();
+    } catch (SocketException e) {
+      System.out.println("TCP server SocketException");
+      e.printStackTrace();
+    } catch (IOException e) {
+      System.out.println("TCP server IOException");
+      e.printStackTrace();
+    }
   }
   
   @Override
   public void run() {
-    try {
-      start(port);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (AWTException e) {
-      System.out.println("Failed with AWT exception from Robot");
-      e.printStackTrace();
+    while(true){
+      try {
+        System.out.println("waiting for socket");
+        start(port);
+        System.out.println("didnt get socket");
+      } catch (SocketException e){
+        stop();
+//        e.printStackTrace();
+      } catch (IOException e) {
+        stop();
+//        e.printStackTrace();
+      } catch (AWTException e) {
+        System.out.println("Failed with AWT exception from Robot");
+        e.printStackTrace();
+      } catch (Exception e) {
+        System.out.println("Unknwon exception");
+        e.printStackTrace();
+      }
     }
   }
 }
