@@ -2,6 +2,7 @@ package com.zaidazadkiel.remotecontrol;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class RobotControl {
   Robot control;
@@ -28,6 +29,9 @@ public class RobotControl {
         control.mouseRelease(mask);
       }
       break;
+      case "click":
+        control.keyPress(KeyEvent.VK_L);
+        control.keyRelease(KeyEvent.VK_L);
       default:
         System.out.println("unknown command: "+command[0]);
     }
