@@ -1,27 +1,17 @@
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.net.ServerSocket;
+package com.zaidazadkiel.remotecontrol;
 
-/**
- * This program demonstrates how to implement a UDP server program.
- *
- *
- * @author www.codejava.net
- */
 public class Main {
   //TODO add config file
   
-  public Main() throws SocketException {
+  public Main() throws Exception {
     int port_udp = 4960;
     int port_tcp = 45340;
+ 
     System.out.println("Started Server");
-  
-    System.out.println("UDP Port: " + port_udp);
     new Thread(new UDPListener(port_udp)).start();
-    
-    System.out.println("TCP Port: " + port_tcp);
     new Thread(new TCPListener(port_tcp)).start();
+    new Thread(new ConfigDB()).start();
+    new Thread(new ConfigServer(new String[]{"hi"})).start();
   }
   
   public static void main(String[] args) {

@@ -1,12 +1,12 @@
+package com.zaidazadkiel.remotecontrol;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class TCPListener implements Runnable{
   
@@ -20,6 +20,7 @@ public class TCPListener implements Runnable{
   PointerInfo mouseinfo;
   public TCPListener(int port) {
     this.port=port;
+    System.out.println("TCP Port: " + port);
   }
   
   public void start(int port) throws IOException, AWTException {

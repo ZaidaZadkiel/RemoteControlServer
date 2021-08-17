@@ -1,3 +1,5 @@
+package com.zaidazadkiel.remotecontrol;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -12,6 +14,7 @@ public class UDPListener implements Runnable {
   public UDPListener(int port) throws SocketException {
     this.port =port;
     socket = new DatagramSocket(port);
+    System.out.println("UDP Port: " + port);
   }
   
   @Override

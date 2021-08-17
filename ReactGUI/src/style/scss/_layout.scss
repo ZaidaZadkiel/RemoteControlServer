@@ -1,0 +1,238 @@
+@import 'colors';
+
+//templates
+.gap {
+    &-xs {gap: 4px;}
+    &-sm {gap: 8px;}
+    &-md {gap: 16px;}
+    &-lg {gap: 24px;}
+    &-xl {gap: 32px;}
+    &-2xl {gap: 64px;}
+}
+
+//Margins
+.m {
+    &-xs{margin: 4px;}
+    &-sm{margin: 8px;}
+    &-md{margin: 16px;}
+    &-lg{margin: 24px;}
+    &-xl{margin: 32px;}
+    &-2xl{margin: 64px;}
+    &x {
+        &-auto{margin: 0 auto;}
+        &-xs{margin: 0 4px;}
+        &-sm{margin: 0 8px;}
+        &-md{margin: 0 16px;}
+        &-lg{margin: 0 24px;}
+        &-xl{margin: 0 32px;}
+        &-2xl{margin: 0 64px;}
+    };
+    &y {
+        &-auto{ margin: auto 0;}
+        &-xs{ margin: 4px 0;}
+        &-sm{ margin: 8px 0;}
+        &-md{ margin: 16px 0;}
+        &-lg{ margin: 24px 0;}
+        &-xl{ margin: 32px 0;}
+        &-2xl{ margin: 64px 0;}
+    };
+}
+
+// Paddings
+.p {
+    &-xs{padding: 4px;}
+    &-sm{padding: 8px;}
+    &-md{padding: 16px;}
+    &-lg{padding: 24px;}
+    &-xl{padding: 32px;}
+    &-2xl{padding: 64px;}
+    &x {
+        &-auto{padding: 0 auto;}
+        &-xs{padding: 0 4px;}
+        &-sm{padding: 0 8px;}
+        &-md{padding: 0 16px;}
+        &-lg{padding: 0 24px;}
+        &-xl{padding: 0 32px;}
+        &-2xl{padding: 0 64px;}
+    };
+    &y {
+        &-auto{ padding: auto 0;}
+        &-xs{ padding: 4px 0;}
+        &-sm{ padding: 8px 0;}
+        &-md{ padding: 16px 0;}
+        &-lg{ padding: 24px 0;}
+        &-xl{ padding: 32px 0;}
+        &-2xl{ padding: 64px 0;}
+    };
+}
+
+
+
+.grid {
+    display: grid;
+    &-center {
+        @extend .grid;
+        place-content: center;
+    }
+}
+
+.flex {
+
+    &-start {
+        display: flex;
+        &-left{ @extend .flex-start; align-items: flex-start;  justify-content: center; }
+        &-top{ @extend .flex-start;  align-items: center;  justify-content: flex-start; }
+        &-right{ @extend .flex-start; align-items: flex-end;  justify-content: center; }
+        &-bottom{ @extend .flex-start;  align-items: center;  justify-content: flex-end; }
+        &-top-left{ @extend .flex-start;  align-items: flex-start;  justify-content: flex-start; }
+        &-top-right{ @extend .flex-start;  align-items: flex-end;  justify-content: flex-start; }
+        &-bottom-right{ @extend .flex-start;  align-items: flex-end;  justify-content: flex-end; }
+        &-bottom-left{ @extend .flex-start;  align-items: flex-start;  justify-content: flex-end; }    
+        &-column{ flex-direction: column;}
+        &-row{ flex-direction: row;}
+    }
+    &-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-row {
+            @extend .flex-center;
+            flex-direction: row;
+        }
+        &-column {
+            @extend .flex-center;
+            flex-direction: column;
+        }
+    }
+    &-space-between {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            &-row {@extend .flex-space-between; flex-direction: row;}
+            &-column {@extend .flex-space-between; flex-direction: column;}
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.fixed {
+    &-top{ position: sticky; top: 0;}
+}
+
+.font {
+    &-xs{ font-size: 14px; line-height: 24px; letter-spacing: 0.04em; font-weight: 600;}
+    &-sm{ font-size: 18px; line-height: 24px; font-weight: 600;}
+    &-md{ font-size: 26px; line-height: 32px; font-weight: 400;}
+    &-lg{ font-size: 36px; line-height: 48px; font-weight: 400;}
+    &-xl{ font-size: 51px; line-height: 72px; font-weight: 500;}
+    &-2xl{ font-size: 72px; line-height: 94px; font-weight: 600;}
+    &-link-special{ font-size: 14px; line-height: 24px; letter-spacing: 0.04em; font-weight: 700;}
+    &-default { font-size: 16px; line-height: 24px; font-weight: 400;}
+    &-micro{ font-size: 10px; line-height: 16px; letter-spacing: 0.04em; font-weight: 600;}
+    &-uppercase{ text-transform: uppercase;}
+}
+
+.h {
+    &-full {height: 100%;}
+    &-max { height: 100vh;}
+    &-container {height: calc(100vh - 64px);}
+    &-sm { min-height: 172px;}
+    &-md { min-height: 372px; margin-top: -72px;}
+}
+.w {
+    &-full {width: 100%;}
+    &-max { width: 100vh;}
+    &-container {max-width: 1200px; }
+    &-sm { min-width: 172px;}
+}
+
+
+
+
+// containers
+.container {
+    &-auto {@extend .container; margin: 8px 16px; display: block;}
+    &-2xs{ @extend .container; max-width: 240px;}
+    &-xs { @extend .container; max-width: 320px;}
+    &-sm { @extend .container; max-width: 640px;}
+    &-md {@extend .container; max-width: 768px;}
+    &-lg {@extend .container; max-width: 1024px;}
+    &-xl {@extend .container; max-width: 1280px;}
+    &-2xl {@extend .container; max-width: 1536px;}
+
+    background:rgba(var(--theme-container-background),$alpha: 0.55);
+    // backdrop-filter:  blur(8px);
+    width: 100%;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+
+.shadow {
+    &-sm {
+        box-shadow: var(--shadow-small);
+    }
+}
+
+
+.color-gray {
+    &-50{color: $gray-50;}
+    &-100{color: $gray-100;}
+    &-200{color: $gray-200;}
+    &-300{color: $gray-300;}
+    &-400{color: $gray-400;}
+    &-500{color: $gray-500;}
+    &-600{color: $gray-600;}
+    &-700{color: $gray-700;}
+    &-800{color: $gray-800;}
+    &-900{color: $gray-900;}
+}
+
+.bg-gray {
+    &-50{background: $gray-50;}
+    &-100{background: $gray-100;}
+    &-200{background: $gray-200;}
+    &-300{background: $gray-300;}
+    &-400{background: $gray-400;}
+    &-500{background: $gray-500;}
+    &-600{background: $gray-600;}
+    &-700{background: $gray-700;}
+    &-800{background: $gray-800;}
+    &-900{background: $gray-900;}
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+
+button {
+    background: none;
+    border-style: none;
+    padding: 0px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    color: var(--theme-accent);
+    border: 0.5px solid ;
+    border-color: transparent;
+
+
+    // &:focus {
+    //     outline: 1px dotted;
+    //     outline: 5px auto -webkit-focus-ring-color;
+    //   }
+
+
+}
