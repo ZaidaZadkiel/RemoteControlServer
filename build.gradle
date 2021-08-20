@@ -13,6 +13,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.23.1'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0-rc1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0-rc1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0-rc1'
 }
 
 test {
